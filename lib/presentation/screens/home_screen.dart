@@ -1,46 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherly/core/provider/auth_provider.dart';
-import 'login_screen.dart';
+import 'package:weatherly/core/provider/weather_provider.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-  
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
-    
+    final weatherProvider = Provider.of<WeatherProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: Center(child: Text('Weatherly')),
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () async {
-              try {
-                await authProvider.signOut();
-                // Use post-frame callback to ensure the context is valid
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (_) => LoginScreen()),
-                  );
-                });
-              } catch (error) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Sign out error: $error')),
-                );
-              }
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              authProvider.signOut();
+              Navigator.pushReplacementNamed(context, '/login');
             },
           ),
         ],
       ),
-      body: Center(
-        child: Text(
-          'Welcome ${authProvider.user?.email ?? 'User'}!',
-          style: const TextStyle(fontSize: 24),
-        ),
-      ),
+      body: weatherProvider.isLoading
+          ? Center(child: CircularProgressIndicator())
+          : weatherProvider.weatherData == null
+              ? Center(child: Text("Failed to load weather"))
+              : Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.network(
+                          "https://openweathermap.org/img/wn/${weatherProvider.weatherData!['weather'][0]['icon']}@4x.png"),
+                      Text("${weatherProvider.weatherData!['main']['temp']}°C",
+                          style: TextStyle(fontSize: 40)),
+                      Text(
+                          "${weatherProvider.weatherData!['weather'][0]['description']}",
+                          style: TextStyle(fontSize: 20)),
+                    ],
+                  ),
+                ),
     );
   }
 }

@@ -42,20 +42,38 @@ class _SignupScreenState extends State<SignupScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                TextField(
-                  controller: emailController,
-                  decoration: const InputDecoration(labelText: "Email"),
+                const Text(
+                  'Signup',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                TextField(
-                  controller: passwordController,
+                const SizedBox(height: 20),
+                const TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const TextField(
                   obscureText: true,
-                  decoration: const InputDecoration(labelText: "Password"),
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    border: OutlineInputBorder(),
+                  ),
                 ),
                 const SizedBox(height: 20),
                 isLoading
                     ? const CircularProgressIndicator()
-                    : ElevatedButton(
-                        onPressed: signup, child: const Text("Sign Up")),
+                    : SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                            onPressed: signup, child: const Text("Signup")),
+                      ),
+                const SizedBox(height: 10),
                 TextButton(
                   onPressed: () {
                     Navigator.push(

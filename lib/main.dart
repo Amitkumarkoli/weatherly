@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherly/core/provider/auth_provider.dart';
+import 'package:weatherly/core/provider/weather_provider.dart';
 import 'package:weatherly/routes/routes.dart';
 
 void main() async {
@@ -15,10 +16,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => AuthProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
+        ChangeNotifierProvider(create: (context) => WeatherProvider()),
+      ],
       child: MaterialApp(
-        title: 'Firebase Auth Demo',
+        title: 'Weatherly',
         debugShowCheckedModeBanner: false,
         initialRoute: AppRoutes.login,
         routes: AppRoutes.getRoutes(),

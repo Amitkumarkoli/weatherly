@@ -35,27 +35,44 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               children: [
-                TextField(
-                  controller: emailController,
-                  decoration: const InputDecoration(labelText: "Email"),
+                const Text(
+                  'Login',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                TextField(
-                  controller: passwordController,
+                const SizedBox(height: 20),
+                const TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const TextField(
                   obscureText: true,
-                  decoration: const InputDecoration(labelText: "Password"),
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    border: OutlineInputBorder(),
+                  ),
                 ),
                 const SizedBox(height: 20),
                 isLoading
                     ? const CircularProgressIndicator()
-                    : ElevatedButton(
-                        onPressed: login, child: const Text("Login")),
+                    : SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                            onPressed: login, child: const Text("Login")),
+                      ),
+                const SizedBox(height: 10),
                 TextButton(
                   onPressed: () {
                     Navigator.push(
