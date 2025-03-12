@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
           emailController.text.trim(), passwordController.text.trim());
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => HomeScreen()),
+        MaterialPageRoute(builder: (_) => const HomeScreen()),
       );
     } catch (e) {
       ScaffoldMessenger.of(context)

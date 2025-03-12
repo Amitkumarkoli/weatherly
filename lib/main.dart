@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherly/core/provider/auth_provider.dart';
+import 'package:weatherly/core/provider/navigation_provider.dart';
 import 'package:weatherly/core/provider/weather_provider.dart';
 import 'package:weatherly/routes/routes.dart';
 
@@ -20,11 +21,12 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => WeatherProvider()),
+        ChangeNotifierProvider(create: (context) => NavigationProvider()),
       ],
       child: MaterialApp(
         title: 'Weatherly',
         debugShowCheckedModeBanner: false,
-        initialRoute: AppRoutes.login,
+        initialRoute: AppRoutes.home,
         routes: AppRoutes.getRoutes(),
       ),
     );
