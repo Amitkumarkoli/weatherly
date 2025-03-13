@@ -43,6 +43,20 @@ class HomeScreen extends StatelessWidget {
                         "${weatherProvider.weatherData!['weather'][0]['description']}",
                         style: const TextStyle(fontSize: 20),
                       ),
+                      SizedBox(height: 20),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          weatherProvider
+                              .fetchWeather(); 
+                        },
+                        icon: const Icon(Icons.refresh),
+                        label: const Text("Refresh Weather"),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 12),
+                          textStyle: const TextStyle(fontSize: 18),
+                        ),
+                      )
                     ],
                   ),
                 ),
