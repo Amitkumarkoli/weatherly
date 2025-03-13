@@ -23,11 +23,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => WeatherProvider()),
         ChangeNotifierProvider(create: (context) => NavigationProvider()),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         title: 'Weatherly',
         debugShowCheckedModeBanner: false,
-        initialRoute: AppRoutes.home,
-        routes: AppRoutes.getRoutes(),
+        onGenerateRoute: AppRoutes.generateRoute,
+      initialRoute: AppRoutes.main,
       ),
     );
   }

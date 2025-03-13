@@ -10,7 +10,8 @@ class SettingScreen extends StatefulWidget {
 class _SearchScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      appBar: AppBar(title: Center(child: Text('Setting Screen'))),
       body: Center(child: Text("Setting Screen")),
     );
   }
