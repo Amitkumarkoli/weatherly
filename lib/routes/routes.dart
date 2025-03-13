@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:weatherly/presentation/screens/setting_screen.dart';
 import '../presentation/screens/home_screen.dart';
 import '../presentation/screens/search_screen.dart';
 import '../presentation/screens/favorite_screen.dart';
-import '../presentation/screens/profile_screen.dart';
 import '../presentation/screens/login_screen.dart';
 import '../presentation/screens/signup_screen.dart';
 
@@ -21,7 +21,7 @@ class AppRoutes {
       home: (context) => const HomeScreen(),
       search: (context) => const SearchScreen(),
       favorites: (context) => const FavoriteScreen(),
-      profile: (context) => const ProfileScreen(),
+      profile: (context) => const SettingScreen(),
     };
   }
 }

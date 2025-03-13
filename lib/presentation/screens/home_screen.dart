@@ -4,7 +4,7 @@ import 'package:weatherly/core/provider/auth_provider.dart';
 import 'package:weatherly/core/provider/navigation_provider.dart';
 import 'package:weatherly/core/provider/weather_provider.dart';
 import 'package:weatherly/presentation/screens/favorite_screen.dart';
-import 'package:weatherly/presentation/screens/profile_screen.dart';
+import 'package:weatherly/presentation/screens/setting_screen.dart';
 import 'package:weatherly/presentation/screens/search_screen.dart';
 import 'package:weatherly/presentation/widgets/bottom_nav_bar.dart';
 
@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
       const WeatherHomeScreen(),
       const SearchScreen(),
       const FavoriteScreen(),
-      const ProfileScreen(),
+      const SettingScreen(),
     ];
 
     return Scaffold(
