@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:weatherly/presentation/widgets/bottom_nav_bar.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
