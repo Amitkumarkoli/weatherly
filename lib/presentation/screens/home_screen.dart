@@ -1,28 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weatherly/core/provider/auth_provider.dart';
 import 'package:weatherly/core/provider/weather_provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final weatherProvider = Provider.of<WeatherProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: const Center(child: Text('Weatherly')),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              authProvider.signOut();
-              Navigator.pushReplacementNamed(context, '/login');
-            },
-          ),
-        ],
       ),
       body: weatherProvider.isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -43,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                         "${weatherProvider.weatherData!['weather'][0]['description']}",
                         style: const TextStyle(fontSize: 20),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       ElevatedButton.icon(
                         onPressed: () {
                           weatherProvider
