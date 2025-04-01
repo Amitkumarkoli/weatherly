@@ -32,8 +32,6 @@ class _SearchScreenState extends State<SettingScreen> {
               trailing: const Icon(Icons.share),
               title: const Text('Share App',style: TextStyle(fontSize: 16)),
               onTap: () {
-                authProvider.signOut();
-                Navigator.pushReplacementNamed(context, '/login');
               },
             ),
             const Divider(),
