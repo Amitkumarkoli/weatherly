@@ -38,19 +38,35 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: const TextStyle(fontSize: 20),
                       ),
                       const SizedBox(height: 20),
-                      ElevatedButton.icon(
-                        onPressed: () {
-                          weatherProvider
-                              .fetchWeather(); 
-                        },
-                        icon: const Icon(Icons.refresh),
-                        label: const Text("Refresh Weather"),
+                      ElevatedButton(
+                        onPressed: weatherProvider.isLoading
+                            ? null
+                            : () {
+                                weatherProvider.fetchWeather();
+                              },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 12),
                           textStyle: const TextStyle(fontSize: 18),
                         ),
-                      )
+                        child: weatherProvider.isLoading
+                            ? const SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: CircularProgressIndicator(
+                                  color: Colors.blue,
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  Icon(Icons.refresh),
+                                  SizedBox(width: 8),
+                                  Text("Refresh Weather"),
+                                ],
+                              ),
+                      ),
                     ],
                   ),
                 ),
