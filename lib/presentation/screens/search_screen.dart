@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:weatherly/core/provider/weather_provider.dart';
+import 'package:weatherly/presentation/screens/weather_detail_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -8,10 +11,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  // Controller for the search text field.
   final TextEditingController _searchController = TextEditingController();
-
-  // Dummy list of suggestions.
   final List<String> _searchSuggestions = [
     "New York",
     "Los Angeles",
@@ -21,38 +21,49 @@ class _SearchScreenState extends State<SearchScreen> {
     "Paris",
     "Dubai",
   ];
-
-  // This list holds the filtered results.
   List<String> _searchResults = [];
 
-  // Called whenever the search input changes.
   void _onSearchChanged() {
     setState(() {
-      // Filter suggestions based on the entered text (ignoring case).
       _searchResults = _searchSuggestions
-          .where((item) =>
-              item.toLowerCase().contains(_searchController.text.toLowerCase()))
+          .where((item) => item.toLowerCase().contains(_searchController.text.toLowerCase()))
           .toList();
     });
   }
 
   @override
   void dispose() {
-    // Always dispose controllers to free up resources.
     _searchController.dispose();
     super.dispose();
+  }
+
+  void _showWeatherForCity(String cityName) async {
+    final weatherProvider = Provider.of<WeatherProvider>(context, listen: false);
+
+    final weatherData = await weatherProvider.getWeatherForCity(cityName);
+    if (weatherData != null) {
+      // Navigate to detail screen and pass weather data
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => WeatherDetailScreen(cityName: cityName, weatherData: weatherData),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Failed to fetch weather for this location.')),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Each screen can have its own AppBar.
       appBar: AppBar(
-        title: const Text("Search"),
+        title: const Text("Search Location"),
       ),
       body: Column(
         children: [
-          // Search Bar with padding.
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
@@ -60,10 +71,7 @@ class _SearchScreenState extends State<SearchScreen> {
               decoration: InputDecoration(
                 hintText: 'Search location...',
                 prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                // Show clear button only when there is some text.
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
                 suffixIcon: _searchController.text.isNotEmpty
                     ? IconButton(
                         icon: const Icon(Icons.clear),
@@ -76,24 +84,19 @@ class _SearchScreenState extends State<SearchScreen> {
                       )
                     : null,
               ),
-              onChanged: (value) => _onSearchChanged(),
+              onChanged: (_) => _onSearchChanged(),
             ),
           ),
-          // Display search results (or a "no results" message).
           Expanded(
             child: _searchResults.isEmpty
                 ? const Center(child: Text("No results found"))
                 : ListView.builder(
                     itemCount: _searchResults.length,
                     itemBuilder: (context, index) {
+                      final cityName = _searchResults[index];
                       return ListTile(
-                        title: Text(_searchResults[index]),
-                        onTap: () {
-                          // Optionally, set the tapped result as the search text.
-                          setState(() {
-                            _searchController.text = _searchResults[index];
-                          });
-                        },
+                        title: Text(cityName),
+                        onTap: () => _showWeatherForCity(cityName),
                       );
                     },
                   ),

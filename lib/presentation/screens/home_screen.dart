@@ -58,9 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   strokeWidth: 2,
                                 ),
                               )
-                            : Row(
+                            : const Row(
                                 mainAxisSize: MainAxisSize.min,
-                                children: const [
+                                children: [
                                   Icon(Icons.refresh),
                                   SizedBox(width: 8),
                                   Text("Refresh Weather"),
