@@ -2,15 +2,8 @@
 
 A new Flutter project.
 
-## Getting Started
+## 🚀 Download the Latest Version
 
-This project is a starting point for a Flutter application.
+You can download the latest version of the app directly from the link below — no need to wait for official releases or version tags.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 📦 [Click here to download the latest APK](https://Amitkumarkoli.github.io/weatherly/app-release.apk)
